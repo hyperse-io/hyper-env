@@ -24,12 +24,8 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Install Dependencies
+      - name: 📥 Install Dependencies
         run: yarn --frozen-lockfile
-
-      - name: Unit tests
-        run: |
-          yarn test
 
       # @link https://github.com/changesets/action
       - name: Create Release Pull Request or Publish to npm

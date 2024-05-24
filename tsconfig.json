@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "module": "NodeNext",
     "target": "ESNext",
+    "jsx": "preserve",
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -18,7 +19,25 @@
     "baseUrl": ".",
     "rootDir": ".",
     "outDir": "dist",
-    "types": ["vitest/globals"]
+    "types": [
+      "vitest/globals"
+    ],
+    "paths": {},
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
   },
-  "exclude": ["**/node_modules", "**/.*/", "dist", "build"]
+  "exclude": [
+    "**/node_modules",
+    "**/.*/",
+    "dist",
+    "build"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

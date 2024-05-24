@@ -130,4 +130,5 @@ dist
 .pnp.*
 
 
-tailwindcss-extend.cjs
+.env
+.env.*

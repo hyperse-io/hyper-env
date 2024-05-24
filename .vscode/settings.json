@@ -6,13 +6,6 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "never"
   },
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ],
   "[javascript]": {
     "editor.formatOnSave": false
   }

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { cmdMain } from '../dist/index.js';
+import { main } from '../dist/index.js';
 
-cmdMain();
+main(process.argv.slice(2));

@@ -20,6 +20,7 @@ module.exports = {
     project: 'tsconfig.json',
   },
   rules: {
+    'sonarjs/no-duplicate-string': 'off',
     '@typescript-eslint/naming-convention': 'off',
   },
   overrides: [],

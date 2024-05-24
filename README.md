@@ -1,4 +1,4 @@
-# hyper-env
+# @hyperse-io/hyper-env
 
 Runtime Environment Configuration
 
@@ -111,7 +111,7 @@ You are also able to specify the prefix of white-listed environment variables:
 {
   ...
   "scripts": {
-    "start": "hyper-env --prefix NEXT_APP -- next start"
+    "start": "hyper-env -- next start"
   }
   ...
 }
@@ -124,32 +124,6 @@ NEXT_APP_CRA="Create React App"
 NEXT_APP_NOT_SECRET_CODE="1234"
 ```
 
-##### Using prefix with jest
-
-You need to add `NEXT_ENV_PREFIX` env variable before jest command if you use `env()` during your tests:
-
-```
-{
-  ...
-  "scripts": {
-    "test": "NEXT_ENV_PREFIX=NEXT_APP jest --maxWorkers=3"
-  }
-  ...
-}
-```
-
-#### Using with Docker entrypoint
-
-It is possible to use this package as an `ENTRYPOINT` script inside a Dockerfile. This will generate your `__ENV.js` config file when the container boots and allow your `package.json` scripts to remain unchanged. Of course `node` binary must be present in your container.
-
-```dockerfile
-FROM node:alpine
-
-ENTRYPOINT yarn hyper-env --env APP_ENV
-
-CMD yarn start
-```
-
 ### Arguments and parameters
 
 ```bash
@@ -160,37 +134,14 @@ $ hyper-env <args> -- <command>
 
 You may pass a command, such as a nodejs entry file to the `hyper-env` cli tool. For example `hyper-scripts`, `next dev`, `next start`
 
-- `--env`, `-e` **(default: null)**
+- `--env`, `-e` **(default: APP_ENV)**
 
 Specify the name of an existing environment variable, whose value is the name of an environment you want, to make hyper-env parse an environment specific env-file. For example, you may set `APP_ENV=staging` first and then apply `--env APP_ENV` flag. react-env would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
 
-- `--path`, `-p` **(default: null)**
-
-Specify a specific env file to load e.g. `react-env --path .env.testing` would load `.env.testing, .env.local, .env` in that order with the latter taking priority. a Combination of `--env APP_ENV --path testing` where `APP_ENV=staging` loads `.env.testing, .env.staging, .env.local, .env` as the priority order.
-
-- `--dest`, `-d` **(default: ./public)**
-
-Change the default destination for generating the `__ENV.js` file.
-
-- `--prefix` **(default: NEXT_APP)**
-
-Change the default prefix for white-listed env variables. For exemple `react-env --prefix CUSTOM_PREFIX` will white-list variables like: `CUSTOM_PREFIX_PUBLIC_KEY=my-public-key`
-
-- `--debug` **(default: false)**
+- `--path`, `-p` **(default: '')**
 
 Enable debugging for react-env. This will log loaded browser environment variables into your console when running `react-env --debug`
 
-### 3.x.x Breaking changes
-
----
-
 As a significant breaking change we have dropped the ability to specify specific files via the `--env` argument. This argument now specifies environment file to be parsed depending on the running environment. For example `--env APP_ENV` or `-e APP_ENV` where `APP_ENV=staging` reads in `.env.staging`. It is very common for platforms to have `staging, qa, integration` environments that are still built in "production" mode with `NODE_ENV=production`. This allows for that usecase and many others.
 
---
-You are still able to specify files via the `--path, -p` argument.
-
----
-
-We have also dropped adding `NODE_ENV` by default as this was a security risk.
-
-Depandand command is now in the format `react-env <args> -- <command>`
+Depandand command is now in the format `hyper-env <args> -- <command>`

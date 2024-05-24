@@ -30,7 +30,14 @@ function readNextPage() {
 
 describe('test suites of hyper env', () => {
   beforeAll(() => {
-    const files = ['.env', '.env.local', '.env.test', '.env.production'];
+    const files = [
+      '.env',
+      '.env.local',
+      '.env.test',
+      '.env.staging',
+      '.env.staging2',
+      '.env.production',
+    ];
     for (const file of files) {
       if (fs.existsSync(file)) {
         fs.rmSync(file);
@@ -45,6 +52,7 @@ describe('test suites of hyper env', () => {
       'next',
       'build'
     );
+    console.log(stdout);
     expect(stderr).toBe('');
     expect(stdout).not.toMatch(/foo: bar/);
   });
@@ -63,41 +71,35 @@ describe('test suites of hyper env', () => {
     expect(readNextPage()).toMatch(/"hello:","test"/);
   });
 
-  // it('parses env with --path,-p', async () => {
-  //   writeEnvFile('.env.staging', 'FOO=bar');
+  it('parses env with --path,-p', async () => {
+    writeEnvFile('.env.staging', 'NEXT_PUBLIC_FOO=bar');
 
-  //   const { stderr, stdout } = await runTsCliMock(
-  //     cliPath,
-  //     '--path',
-  //     '.env.staging',
-  //     '--',
-  //     'next',
-  //     'build'
-  //   );
-  //   expect(stderr).toBe('');
-  //   expect(stdout).toMatch(/foo: bar/);
-  //   expect(stdout).toMatch(/node_env: test/);
-  //   expect(process.env).not.toMatchObject({
-  //     FOO: 'bar',
-  //   });
-  // });
+    const { stderr, stdout } = await runTsCliMock(
+      cliPath,
+      '--path',
+      '.env.staging',
+      '--',
+      'next',
+      'build'
+    );
+    expect(stderr).toBe('');
+    expect(stdout).toMatch(/node_env: test/);
+    expect(readNextPage()).toMatch(/"hello:","bar"/);
+  });
 
-  // it('parses env with --path,-p', async () => {
-  //   writeEnvFile('.env', 'FOO=bar');
-
-  //   const { stderr, stdout } = await runTsCliMock(
-  //     cliPath,
-  //     '--path',
-  //     '.env',
-  //     '--',
-  //     'next',
-  //     'build'
-  //   );
-  //   expect(stderr).toBe('');
-  //   expect(stdout).toMatch(/foo: bar/);
-  //   expect(stdout).toMatch(/node_env: test/);
-  //   expect(process.env).not.toMatchObject({
-  //     FOO: 'bar',
-  //   });
-  // });
+  it('parses env with --env,-e', async () => {
+    writeEnvFile('.env.staging2', 'NEXT_PUBLIC_FOO=staging2');
+    // APP_ENV=staging2 hyper-env --env APP_ENV -- next build
+    vi.stubEnv('APP_ENV', 'staging2');
+    const { stderr, stdout } = await runTsCliMock(
+      cliPath,
+      '--env',
+      'APP_ENV',
+      '--',
+      'next',
+      'build'
+    );
+    expect(stderr).toBe('');
+    expect(stdout).toMatch(/node_env: test/);
+  });
 });

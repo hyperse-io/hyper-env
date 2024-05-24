@@ -1,1 +1,1 @@
-# hyper-env
+# @hyperse-io/hyper-env

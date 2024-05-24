@@ -35,6 +35,10 @@ export const main = (args: string[]) => {
       e: 'env',
       p: 'path',
     },
+    default: {
+      e: 'APP_ENV',
+      p: '',
+    },
   });
 
   const dotenvFiles = getEnvFiles(argv);

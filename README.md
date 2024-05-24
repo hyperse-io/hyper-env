@@ -1,11 +1,19 @@
-# @hyperse-io/hyper-env <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+# @hyperse-io/hyper-env
 
-[![github actions][actions-image]][actions-url]
-[![coverage][codecov-image]][codecov-url]
-[![License][license-image]][license-url]
-[![Downloads][downloads-image]][downloads-url]
-
-[![npm badge][npm-badge-png]][package-url]
+<p align="left">
+  <a aria-label="Build" href="https://github.com/armitjs/armit/actions?query=workflow%3ACI">
+    <img alt="build" src="https://img.shields.io/github/actions/workflow/status/hyperse-io/hyper-env/ci-integrity.yml?branch=main&label=CI&logo=github&style=flat-quare&labelColor=000000" />
+  </a>
+  <a aria-label="LoC">  
+    <img alt="LoC" src="https://img.shields.io/tokei/lines/github/hyperse-io/hyper-env?style=flat-quare&labelColor=000000" />
+  </a>
+  <a aria-label="Top language" href="https://github.com/hyperse-io/hyper-env/search?l=typescript">
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/hyperse-io/hyper-env?style=flat-square&labelColor=000&color=blue">
+  </a>
+  <a aria-label="Licence" href="https://github.com/hyperse-io/hyper-env/blob/main/LICENSE">
+    <img alt="Licence" src="https://img.shields.io/github/license/hyperse-io/hyper-env?style=flat-quare&labelColor=000000" />
+  </a>
+</p>
 
 Runtime Environment Configuration
 

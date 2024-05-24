@@ -1,25 +1,62 @@
-function isBrowser() {
-  return Boolean(typeof window !== 'undefined' && window.__ENV);
-}
+'use strict';
 
-function getFiltered() {
-  const prefix = process.env.REACT_ENV_PREFIX || 'REACT_APP';
-  return Object.keys(process.env)
-    .filter((key) => new RegExp(`^${prefix}_`, 'i').test(key))
-    .reduce((env, key) => {
-      env[key] = process.env[key];
-      return env;
-    }, {});
-}
+import * as fs from 'node:fs';
+import spawn from 'cross-spawn';
+import dotenv from 'dotenv';
+import dotenvExpand from 'dotenv-expand';
 
-export default function env(key = '') {
-  const prefix =
-    (isBrowser()
-      ? window.__ENV['REACT_ENV_PREFIX']
-      : process.env.REACT_ENV_PREFIX) || 'REACT_APP';
-  const safeKey = `${prefix}_${key}`;
-  if (isBrowser()) {
-    return key.length ? window.__ENV[safeKey] : window.__ENV;
+import minimist from 'minimist';
+const argv = minimist(process.argv.slice(2), { '--': true });
+
+function writeBrowserEnvironment(env: NodeJS.ProcessEnv) {
+  const base = fs.realpathSync(process.cwd());
+  const dest = argv.d || argv.dest || 'public';
+  const debug = argv.debug;
+  const path = `${base}/${dest}/__ENV.js`;
+  console.info('current-env: Writing runtime env', path);
+  if (debug) {
+    console.debug(`current-env: ${JSON.stringify(env, null, 2)}`);
   }
-  return key.length ? process.env[safeKey] : getFiltered();
+  const populate = `window.__ENV = ${JSON.stringify(env)};`;
+  fs.writeFileSync(path, populate);
+}
+
+function resolveFile(file: string) {
+  const path = fs.realpathSync(process.cwd());
+  return `${path}/${file}`;
+}
+
+function getEnvFiles() {
+  const envKey = argv.e || argv.env || '';
+  const envVal = process.env[envKey] ?? '';
+  const path = argv.p || argv.path || '';
+  return [
+    resolveFile(path),
+    resolveFile(`.env.${envVal}`),
+    resolveFile('.env.local'),
+    resolveFile('.env'),
+  ].filter(Boolean);
+}
+
+const dotenvFiles = getEnvFiles();
+
+dotenvFiles.forEach((dotenvFile) => {
+  if (fs.existsSync(dotenvFile)) {
+    dotenvExpand.expand(
+      dotenv.config({
+        path: dotenvFile,
+      })
+    );
+  }
+});
+
+writeBrowserEnvironment(process.env);
+
+if (argv['--'] && argv['--'].length) {
+  spawn(argv['--'][0], argv['--'].slice(1), { stdio: 'inherit' }).on(
+    'exit',
+    function (exitCode) {
+      process.exit(exitCode);
+    }
+  );
 }

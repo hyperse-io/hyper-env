@@ -8,5 +8,6 @@ export default defineConfig({
     alias: {
       '~/': fileURLToPath(new URL('./src/', import.meta.url)),
     },
+    include: ['**/?(*.){test,spec}.?(c|m)[jt]s?(x)'],
   },
 });

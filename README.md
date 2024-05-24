@@ -1,12 +1,15 @@
-# @hyperse-io/hyper-env
+# @hyperse-io/hyper-env <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+
+[![github actions][actions-image]][actions-url]
+[![coverage][codecov-image]][codecov-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
+
+[![npm badge][npm-badge-png]][package-url]
 
 Runtime Environment Configuration
 
 Populates your environment from .env files at run-time rather than build-time.
-
-[![Build Status](https://cloud.drone.io/api/badges/hyperse-io/hyper-env/status.svg)](https://cloud.drone.io/hyperse-io/hyper-env)
-[![npm version](https://badge.fury.io/js/%40hyperse-io%hyper-env.svg)](https://badge.fury.io/js/%40hyperse-io%2Freact-env)
-[![Coverage Status](https://coveralls.io/repos/github/hyperse-io/hyper-env/badge.svg)](https://coveralls.io/github/hyperse-io/hyper-env)
 
 Populates your environment from `.env` files at **run-time** rather than **build-time**.
 

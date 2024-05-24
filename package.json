@@ -1,6 +1,6 @@
 {
   "name": "@hyperse-io/hyper-env",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Populates your environment from .env files at run-time rather than build-time.",
   "repository": {
     "type": "git",

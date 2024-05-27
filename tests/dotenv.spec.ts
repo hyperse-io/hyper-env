@@ -1,7 +1,6 @@
 import * as fs from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { vi } from 'vitest';
 import { runTsCliMock } from './run-cli-program.js';
 
 const getDirname = (url: string, ...paths: string[]) => {

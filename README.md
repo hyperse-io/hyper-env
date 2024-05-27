@@ -17,22 +17,22 @@
 
 Runtime Environment Configuration
 
-Populates your environment from .env files at run-time rather than build-time.
-
 Populates your environment from `.env` files at **run-time** rather than **build-time**.
 
 - Supports multiple `.env` files.
 
 ## README
 
-- [Examples](#examples)
-- [Getting started](#getting-started)
-- [File priority](#env-file-order-of-priority)
-- [Common use cases](#common-use-cases)
-  - [Environment specific config](#environment-specific-config)
-  - [Specifing an env file](#Specifing-an-env-file)
-  - [Using with Docker entrypoint](#using-with-docker-entrypoint)
-- [Arguments and parameters](#arguments-and-parameters)
+- [@hyperse-io/hyper-env](#hyperse-iohyper-env)
+  - [README](#readme)
+    - [Examples](#examples)
+    - [Getting started](#getting-started)
+    - [.env file order of priority](#env-file-order-of-priority)
+    - [Common use cases](#common-use-cases)
+      - [Environment specific config](#environment-specific-config)
+      - [Specifing an env file](#specifing-an-env-file)
+      - [Specifing an prefix for white-listed environment variables](#specifing-an-prefix-for-white-listed-environment-variables)
+    - [Arguments and parameters](#arguments-and-parameters)
 
 ### Examples
 
@@ -147,11 +147,9 @@ You may pass a command, such as a nodejs entry file to the `hyper-env` cli tool.
 
 - `--env`, `-e` **(default: APP_ENV)**
 
-Specify the name of an existing environment variable, whose value is the name of an environment you want, to make hyper-env parse an environment specific env-file. For example, you may set `APP_ENV=staging` first and then apply `--env APP_ENV` flag. react-env would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
+Specify the name of an existing environment variable, whose value is the name of an environment you want, to make hyper-env parse an environment specific env-file. For example, you may set `APP_ENV=staging` first and then apply `--env APP_ENV` flag. hyper-env would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
 
 - `--path`, `-p` **(default: '')**
-
-Enable debugging for react-env. This will log loaded browser environment variables into your console when running `react-env --debug`
 
 As a significant breaking change we have dropped the ability to specify specific files via the `--env` argument. This argument now specifies environment file to be parsed depending on the running environment. For example `--env APP_ENV` or `-e APP_ENV` where `APP_ENV=staging` reads in `.env.staging`. It is very common for platforms to have `staging, qa, integration` environments that are still built in "production" mode with `NODE_ENV=production`. This allows for that usecase and many others.
 

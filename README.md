@@ -36,7 +36,7 @@ Populates your environment from `.env` files at **run-time** rather than **build
 
 ### Examples
 
-- Example using [Next.js](examples/next.js/README.md) (see README.md)
+- Example using [Next.js](pages/index.tsx) (see file)
 
 ### Getting started
 

@@ -1052,9 +1052,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hyperse/eslint-config-hyperse@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@hyperse/eslint-config-hyperse@npm:1.0.3"
+"@hyperse/eslint-config-hyperse@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "@hyperse/eslint-config-hyperse@npm:1.0.4"
   dependencies:
     "@eslint/js": "npm:^9.3.0"
     "@next/eslint-plugin-next": "npm:^14.2.3"
@@ -1077,7 +1077,7 @@ __metadata:
   peerDependencies:
     eslint: ^9.3.0
     typescript: ^5.4.3
-  checksum: 10/56c464808ed093c697317ad894c33f116f2903851bd0379142d18f1982d0e73d1d3e4365c991b0b4830bdf454b7d5eca7f43d9e1ab326fc843462a79bf372bbd
+  checksum: 10/03c611d8a1c07941ef02a6f3c82b7ce7eaaed34af4727c6b8c6ea6375bd086b3302ce7732d2a4876b9215546c65bec9bc944b8548660fc2b164816bc2d2902f7
   languageName: node
   linkType: hard
 
@@ -1090,7 +1090,7 @@ __metadata:
     "@changesets/cli": "npm:2.27.3"
     "@commitlint/cli": "npm:19.3.0"
     "@commitlint/config-conventional": "npm:19.2.2"
-    "@hyperse/eslint-config-hyperse": "npm:^1.0.3"
+    "@hyperse/eslint-config-hyperse": "npm:^1.0.4"
     "@types/cross-spawn": "npm:^6.0.6"
     "@types/node": "npm:^20.12.12"
     "@types/postcss-js": "npm:^4"

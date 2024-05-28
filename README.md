@@ -1,11 +1,11 @@
 # @hyperse/hyper-env
 
 <p align="left">
-  <a aria-label="Build" href="https://github.com/armitjs/armit/actions?query=workflow%3ACI">
-    <img alt="build" src="https://img.shields.io/github/actions/workflow/status/hyperse-io/hyper-env/ci-integrity.yml?branch=main&label=CI&logo=github&style=flat-quare&labelColor=000000" />
+  <a aria-label="Build" href="https://github.com/hyperse-io/hyper-env/actions?query=workflow%3ACI">
+    <img alt="build" src="https://img.shields.io/github/actions/workflow/status/hyperse-io/hyper-env/ci-integrity.yml?branch=main&label=ci&logo=github&style=flat-quare&labelColor=000000" />
   </a>
-  <a aria-label="LoC">  
-    <img alt="LoC" src="https://img.shields.io/tokei/lines/github/hyperse-io/hyper-env?style=flat-quare&labelColor=000000" />
+  <a aria-label="stable version" href="https://www.npmjs.com/package/@hyperse/hyper-env">
+    <img alt="stable version" src="https://img.shields.io/npm/v/%40hyperse%2Fhyper-env?branch=main&label=version&logo=npm&style=flat-quare&labelColor=000000" />
   </a>
   <a aria-label="Top language" href="https://github.com/hyperse-io/hyper-env/search?l=typescript">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/hyperse-io/hyper-env?style=flat-square&labelColor=000&color=blue">

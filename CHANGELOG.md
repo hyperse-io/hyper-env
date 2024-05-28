@@ -1,5 +1,13 @@
 # @hyperse/hyper-env
 
+## 1.0.3
+
+### Patch Changes
+
+- [`7605bf3`](https://github.com/hyperse-io/hyper-env/commit/7605bf30779cf552d2ca239a5b3b700af36d21e3) Thanks [@tianyingchun](https://github.com/tianyingchun)! - bump version
+
+- [`08b11fe`](https://github.com/hyperse-io/hyper-env/commit/08b11fe4db1e06397e3ac66e6414a6c05780b3ba) Thanks [@tianyingchun](https://github.com/tianyingchun)! - rename `hyperse-io` to `hyperse`
+
 ## 1.0.2
 
 ### Patch Changes

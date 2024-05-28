@@ -1,4 +1,4 @@
-# @hyperse-io/hyper-env
+# @hyperse/hyper-env
 
 ## 1.0.2
 

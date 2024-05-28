@@ -1,8 +1,8 @@
-import { existsSync, realpathSync } from 'node:fs';
 import spawn from 'cross-spawn';
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import minimist from 'minimist';
+import { existsSync, realpathSync } from 'node:fs';
 
 function resolveFile(file: string) {
   const path = realpathSync(process.cwd());

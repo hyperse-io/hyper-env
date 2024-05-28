@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { runTsScript, type CliMockResult } from '@armit/commander';
+import { type CliMockResult, runTsScript } from '@armit/commander';
 
 export async function runTsCliMock(
   program: string,

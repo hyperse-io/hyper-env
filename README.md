@@ -1,4 +1,4 @@
-# @hyperse-io/hyper-env
+# @hyperse/hyper-env
 
 <p align="left">
   <a aria-label="Build" href="https://github.com/armitjs/armit/actions?query=workflow%3ACI">
@@ -23,16 +23,14 @@ Populates your environment from `.env` files at **run-time** rather than **build
 
 ## README
 
-- [@hyperse-io/hyper-env](#hyperse-iohyper-env)
-  - [README](#readme)
-    - [Examples](#examples)
-    - [Getting started](#getting-started)
-    - [.env file order of priority](#env-file-order-of-priority)
-    - [Common use cases](#common-use-cases)
-      - [Environment specific config](#environment-specific-config)
-      - [Specifing an env file](#specifing-an-env-file)
-      - [Specifing an prefix for white-listed environment variables](#specifing-an-prefix-for-white-listed-environment-variables)
-    - [Arguments and parameters](#arguments-and-parameters)
+- [Examples](#examples)
+- [Getting started](#getting-started)
+- [.env file order of priority](#env-file-order-of-priority)
+- [Common use cases](#common-use-cases)
+  - [Environment specific config](#environment-specific-config)
+  - [Specifing an env file](#specifing-an-env-file)
+  - [Specifing an prefix for white-listed environment variables](#specifing-an-prefix-for-white-listed-environment-variables)
+- [Arguments and parameters](#arguments-and-parameters)
 
 ### Examples
 

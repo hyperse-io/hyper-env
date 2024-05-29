@@ -1,8 +1,7 @@
 import * as fs from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runTsCliMock } from './run-cli-program.js';
-
+import { runTsScript } from '@hyperse/exec-program';
 const getDirname = (url: string, ...paths: string[]) => {
   return join(dirname(fileURLToPath(url)), ...paths);
 };
@@ -46,8 +45,9 @@ describe('test suites of hyper env', () => {
   });
 
   it('parses env without customized env', async () => {
-    const { stderr, stdout } = await runTsCliMock(
+    const { stderr, stdout } = await runTsScript(
       cliPath,
+      {},
       '--',
       'next',
       'build'
@@ -59,8 +59,9 @@ describe('test suites of hyper env', () => {
   it('parses env with next .env', async () => {
     writeEnvFile('.env', 'NEXT_PUBLIC_FOO=dev');
 
-    const { stderr, stdout } = await runTsCliMock(
+    const { stderr, stdout } = await runTsScript(
       cliPath,
+      {},
       '--',
       'next',
       'build'
@@ -74,8 +75,9 @@ describe('test suites of hyper env', () => {
     writeEnvFile('.env.staging', 'NEXT_PUBLIC_FOO=env_staging');
     // hyper-env APP_ENV=staging hyper-env --env APP_ENV -- next build
     vi.stubEnv('APP_ENV', 'staging');
-    const { stderr, stdout } = await runTsCliMock(
+    const { stderr, stdout } = await runTsScript(
       cliPath,
+      {},
       '--env',
       'APP_ENV',
       '--',
@@ -91,8 +93,9 @@ describe('test suites of hyper env', () => {
     writeEnvFile('.env.staging2', 'NEXT_PUBLIC_FOO=e_staging2');
     // APP_ENV=staging2 hyper-env -e APP_ENV -- next build
     vi.stubEnv('APP_ENV', 'staging2');
-    const { stderr, stdout } = await runTsCliMock(
+    const { stderr, stdout } = await runTsScript(
       cliPath,
+      {},
       '-e',
       'APP_ENV',
       '--',
@@ -107,8 +110,9 @@ describe('test suites of hyper env', () => {
   it('parses env files via --path arg', async () => {
     writeEnvFile('.env.staging', 'NEXT_PUBLIC_FOO=path_staging');
     // hyper-env --path .env.staging -- next build
-    const { stderr, stdout } = await runTsCliMock(
+    const { stderr, stdout } = await runTsScript(
       cliPath,
+      {},
       '--path',
       '.env.staging',
       '--',
@@ -123,8 +127,9 @@ describe('test suites of hyper env', () => {
   it('parses env files via -p arg', async () => {
     writeEnvFile('.env.staging2', 'NEXT_PUBLIC_FOO=p_staging2');
     // hyper-env -p .env.staging2 -- next build
-    const { stderr, stdout } = await runTsCliMock(
+    const { stderr, stdout } = await runTsScript(
       cliPath,
+      {},
       '-p',
       '.env.staging2',
       '--',
@@ -144,8 +149,9 @@ describe('test suites of hyper env', () => {
 
     vi.stubEnv('APP_ENV', 'production');
     // APP_ENV=production  hyper-env -p .env.staging -e APP_ENV -- next build
-    const testRes1 = await runTsCliMock(
+    const testRes1 = await runTsScript(
       cliPath,
+      {},
       '-p',
       '.env.staging',
       '-e',
@@ -160,8 +166,9 @@ describe('test suites of hyper env', () => {
     expect(readNextPage()).toMatch(/"hello:","staging"/);
 
     // APP_ENV=production  hyper-env -e APP_ENV -p .env.staging  -- next build
-    const testRes2 = await runTsCliMock(
+    const testRes2 = await runTsScript(
       cliPath,
+      {},
       '-e',
       'APP_ENV',
       '-p',
@@ -184,8 +191,9 @@ describe('test suites of hyper env', () => {
     writeEnvFile('.env', 'NEXT_PUBLIC_FOO=dev');
 
     // hyper-env -- next build
-    const { stderr, stdout } = await runTsCliMock(
+    const { stderr, stdout } = await runTsScript(
       cliPath,
+      {},
       '--',
       'next',
       'build'

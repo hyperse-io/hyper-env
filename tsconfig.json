@@ -1,5 +1,5 @@
 {
-  "extends":"@hyperse/eslint-config-hyperse/tsconfig.base.json",
+  "extends": "@hyperse/eslint-config-hyperse/tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
@@ -12,7 +12,9 @@
       "dom",
       "dom.iterable",
       "esnext"
-    ]
+    ],
+    "isolatedModules": true,
+    "jsx": "preserve"
   },
   "exclude": [
     "**/node_modules",

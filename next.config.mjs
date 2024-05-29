@@ -1,5 +1,5 @@
 console.log(`node_env:`, process.env.NODE_ENV);
-console.log(`foo:`, process.env.FOO);
+console.log(`foo:`, process.env.NEXT_PUBLIC_FOO);
 
 /**
  * Don't be scared of the generics here.

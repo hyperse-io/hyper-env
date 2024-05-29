@@ -28,7 +28,7 @@ function readNextPage() {
 }
 
 describe('test suites of hyper env', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     const files = [
       '.env',
       '.env.local',
@@ -36,6 +36,7 @@ describe('test suites of hyper env', () => {
       '.env.staging',
       '.env.staging2',
       '.env.production',
+      '.env.development',
     ];
     for (const file of files) {
       if (fs.existsSync(file)) {

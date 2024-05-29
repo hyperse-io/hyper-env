@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.4
+
+### Patch Changes
+
+- [`84ce68b`](https://github.com/hyperse-io/hyper-env/commit/84ce68b0b657401bbff12a4a713d2b899a6cca9d) Thanks [@tianyingchun](https://github.com/tianyingchun)! - refactor migration paths-alias to `exec-program`
+
 ## 1.0.3
 
 ### Patch Changes

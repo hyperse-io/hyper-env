@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.9
+
+### Patch Changes
+
+- [`8d7ddba`](https://github.com/hyperse-io/hyper-env/commit/8d7ddbaebef7944989fe9153cd40da596b825168) Thanks [@tianyingchun](https://github.com/tianyingchun)! - fix next-standalone-defaults
+
 ## 1.0.8
 
 ### Patch Changes

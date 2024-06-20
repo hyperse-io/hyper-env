@@ -28,8 +28,8 @@ export const nextStandalone = async (args: string[]) => {
       c: '',
     },
     default: {
-      fromBase: undefined,
-      copyToBase: undefined,
+      fromBase: process.cwd(),
+      copyToBase: process.cwd(),
     },
   });
 

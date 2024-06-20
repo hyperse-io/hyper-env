@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync } from 'fs';
-import { copyFile } from 'fs/promises';
+import fs from 'fs';
+import fsPromise from 'fs/promises';
 import minimist from 'minimist';
 import { dirname, resolve } from 'path';
 import { nodeFileTrace } from '@vercel/nft';
@@ -20,12 +20,11 @@ type Argv = {
  */
 export const nextStandalone = async (args: string[]) => {
   const binFile = getDirname(import.meta.url, '../bin/hyper-env.mjs');
-
   const argv = minimist<Argv>(args, {
     '--': true,
     alias: {
-      f: '',
-      c: '',
+      f: 'fromBase',
+      c: 'copyToBase',
     },
     default: {
       fromBase: process.cwd(),
@@ -35,18 +34,18 @@ export const nextStandalone = async (args: string[]) => {
 
   const { fromBase, copyToBase } = argv;
 
-  const { fileList: dependentFileList } = await nodeFileTrace([binFile], {
+  const { fileList } = await nodeFileTrace([binFile], {
     base: fromBase,
   });
 
-  for (const file of dependentFileList) {
-    const copyTo = resolve(copyToBase, '.next/standalone', file);
-    if (!existsSync(dirname(copyTo))) {
-      mkdirSync(dirname(copyTo), { recursive: true });
+  for (const filePath of fileList) {
+    const copyTo = resolve(copyToBase, '.next/standalone', filePath);
+    if (!fs.existsSync(dirname(copyTo))) {
+      fs.mkdirSync(dirname(copyTo), { recursive: true });
     }
-    await copyFile(
-      resolve(fromBase, file),
-      resolve(copyToBase, '.next/standalone', file)
+    await fsPromise.copyFile(
+      resolve(fromBase, filePath),
+      resolve(copyToBase, '.next/standalone', filePath)
     );
   }
 };

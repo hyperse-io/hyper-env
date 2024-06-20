@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.7
+
+### Patch Changes
+
+- [`3197846`](https://github.com/hyperse-io/hyper-env/commit/3197846121837a73706743a92d2a614cd0c66f6d) Thanks [@tianyingchun](https://github.com/tianyingchun)! - change `cross-spawn` to `child_process`
+
 ## 1.0.6
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig((options) => ({
   dts: true,
-  entry: ['src/index.ts'],
+  entry: ['src/index.ts', 'src/next-standalone.ts'],
   splitting: false,
   sourcemap: !options.watch,
   clean: true,

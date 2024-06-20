@@ -21,7 +21,10 @@
     "./package.json": "./package.json"
   },
   "types": "./dist/index.d.ts",
-  "bin": "./bin/hyper-env.mjs",
+  "bin": {
+    "hyper-env": "./bin/hyper-env.mjs",
+    "hyper-next-standalone": "./bin/hyper-next-standalone.mjs"
+  },
   "files": [
     "./bin/",
     "./dist/",
@@ -47,6 +50,7 @@
     }
   },
   "dependencies": {
+    "@vercel/nft": "^0.27.2",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "minimist": "^1.2.8"
@@ -56,15 +60,14 @@
     "@changesets/cli": "2.27.5",
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
-    "@hyperse/eslint-config-hyperse": "^1.0.7",
-    "@hyperse/exec-program": "^1.0.4",
-    "@types/cross-spawn": "^6.0.6",
-    "@types/node": "^20.14.2",
+    "@hyperse/eslint-config-hyperse": "^1.0.9",
+    "@hyperse/exec-program": "^1.0.6",
+    "@types/node": "^20.14.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "commitizen": "4.3.0",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "^9.4.0",
+    "eslint": "^9.5.0",
     "husky": "9.0.11",
     "lint-staged": "15.2.7",
     "next": "14.2.4",
@@ -73,7 +76,7 @@
     "react-dom": "^18.3.1",
     "tsup": "^8.1.0",
     "typescript": "^5.4.5",
-    "vite": "^5.2.13",
+    "vite": "^5.3.1",
     "vitest": "^1.6.0"
   },
   "engines": {

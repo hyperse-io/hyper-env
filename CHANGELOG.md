@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.10
+
+### Patch Changes
+
+- [`265c000`](https://github.com/hyperse-io/hyper-env/commit/265c0008fb3fa42a11323b6b05a77c870c1d590a) Thanks [@tianyingchun](https://github.com/tianyingchun)! - add more testcases, fix bug
+
 ## 1.0.9
 
 ### Patch Changes

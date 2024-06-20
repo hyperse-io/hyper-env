@@ -1,4 +1,4 @@
-import spawn from 'cross-spawn';
+import { spawn } from 'child_process';
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import minimist from 'minimist';

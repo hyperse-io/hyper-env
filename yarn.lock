@@ -979,7 +979,6 @@ __metadata:
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
     commitizen: "npm:4.3.0"
-    cross-spawn: "npm:^7.0.3"
     cz-conventional-changelog: "npm:3.3.0"
     dotenv: "npm:^16.4.5"
     dotenv-expand: "npm:^11.0.6"

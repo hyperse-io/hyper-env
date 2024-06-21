@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.11
+
+### Patch Changes
+
+- [`651345a`](https://github.com/hyperse-io/hyper-env/commit/651345afa80d9868c21611eb1561cf4030a3c612) Thanks [@tianyingchun](https://github.com/tianyingchun)! - add `.env.*` copy support
+
 ## 1.0.10
 
 ### Patch Changes

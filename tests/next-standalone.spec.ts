@@ -111,10 +111,7 @@ describe('Next Standalone', () => {
     const copyToBase = '/copyToBase';
     await nextStandalone(['--fromBase', fromBase, '--copyToBase', copyToBase]);
     [
-      [
-        binFile,
-        `${copyToBase}/.next/Users/tianyingchun/Documents/hyperse-io/hyper-env/bin/hyper-env.mjs`,
-      ],
+      [binFile, `${copyToBase}/.next${process.cwd()}/bin/hyper-env.mjs`],
     ].forEach(([from, to]) => {
       expect(fsPromise.copyFile).toHaveBeenCalledWith(from, to);
     });
@@ -126,10 +123,7 @@ describe('Next Standalone', () => {
     const copyToBase = '/copyToBase';
     await nextStandalone(['-f', fromBase, '-c', copyToBase]);
     [
-      [
-        binFile,
-        `${copyToBase}/.next/Users/tianyingchun/Documents/hyperse-io/hyper-env/bin/hyper-env.mjs`,
-      ],
+      [binFile, `${copyToBase}/.next${process.cwd()}/bin/hyper-env.mjs`],
     ].forEach(([from, to]) => {
       expect(fsPromise.copyFile).toHaveBeenCalledWith(from, to);
     });

@@ -1,11 +1,31 @@
-import fs, { rmdirSync } from 'fs';
+import fs, { rmdirSync, rmSync, writeFileSync } from 'fs';
 import fsPromise from 'fs/promises';
 import { join } from 'path';
 import { getDirname } from '../src/get-dir-name.js';
 import { nextStandalone } from '../src/next-standalone.js';
 
 describe('Next Standalone', () => {
+  const fixtureCwd = getDirname(import.meta.url);
   const binFile = getDirname(import.meta.url, '../bin/hyper-env.mjs');
+  const envFiles = {
+    '.env': '',
+    '.env.dev': '',
+    '.env.inte': '',
+    '.env.rc': '',
+    '.env.prod': '',
+  };
+
+  beforeAll(() => {
+    for (const [envFile] of Object.entries(envFiles)) {
+      writeFileSync(join(fixtureCwd, envFile), '');
+    }
+  });
+
+  afterAll(() => {
+    for (const [envFile] of Object.entries(envFiles)) {
+      rmSync(join(fixtureCwd, envFile));
+    }
+  });
 
   beforeEach(() => {
     vi.spyOn(fs, 'existsSync').mockReturnValue(true);
@@ -67,6 +87,21 @@ describe('Next Standalone', () => {
       expect(fsPromise.copyFile).toHaveBeenCalledWith(
         join(process.cwd(), filePath),
         join(process.cwd(), '.next/standalone', filePath)
+      );
+    }
+  });
+
+  it('should correct handle copy .env files for workdir', async () => {
+    await nextStandalone([
+      '--fromBase',
+      fixtureCwd,
+      '--copyToBase',
+      fixtureCwd,
+    ]);
+    for (const envFile of Object.keys(envFiles)) {
+      expect(fsPromise.copyFile).toHaveBeenCalledWith(
+        join(fixtureCwd, envFile),
+        join(fixtureCwd, '.next/standalone', envFile)
       );
     }
   });

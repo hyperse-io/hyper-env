@@ -53,6 +53,7 @@
     "@vercel/nft": "^0.27.2",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
+    "globby": "^14.0.1",
     "minimist": "^1.2.8"
   },
   "devDependencies": {

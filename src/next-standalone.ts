@@ -3,6 +3,7 @@ import fsPromise from 'fs/promises';
 import minimist from 'minimist';
 import { dirname, resolve } from 'path';
 import { nodeFileTrace } from '@vercel/nft';
+import { fileWalk } from './file-walk.js';
 import { getDirname } from './get-dir-name.js';
 
 type Argv = {
@@ -37,6 +38,15 @@ export const nextStandalone = async (args: string[]) => {
   const { fileList } = await nodeFileTrace([binFile], {
     base: fromBase,
   });
+
+  const envFiles = await fileWalk(['.env', '.env.*'], {
+    cwd: fromBase,
+    absolute: false,
+  });
+
+  for (const absEnvFile of envFiles) {
+    fileList.add(absEnvFile);
+  }
 
   for (const filePath of fileList) {
     const copyTo = resolve(copyToBase, '.next/standalone', filePath);

@@ -57,10 +57,10 @@ jobs:
         run: |
           yarn lint
 
-      - name: Unit tests
-        run: |
-          yarn test
-
       - name: Build
         run: |
           yarn build
+      #  build first then exec unit tests
+      - name: Unit tests
+        run: |
+          yarn test

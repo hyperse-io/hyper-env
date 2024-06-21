@@ -249,13 +249,9 @@ CMD sh start.sh
 
 ```json
 "scripts": {
+    "dev": "APP_ENV=rc hyper-env -- next dev",
     "build": "next build",
     "build-docker": "cross-env NEXT_BUILD_ENV_OUTPUT=standalone next build && hyper-next-standalone",
-    "dev": "hyper-env -- next dev",
-    "docker:start": "APP_ENV=prod hyper-env -- node server.js",
-    "docker:start:integration": "APP_ENV=integration hyper-env -- node server.js",
-    "docker:start:prod": "APP_ENV=prod hyper-env -- node server.js",
-    "docker:start:rc": "APP_ENV=rc hyper-env -- node server.js",
     "g:changeset": "changeset",
     "g:cz": "cz",
     "g:fix-all-files": "eslint . --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.mdx,.graphql --fix",
@@ -267,10 +263,10 @@ CMD sh start.sh
     "start:integration": "APP_ENV=integration hyper-env -- next start",
     "start:prod": "APP_ENV=prod hyper-env -- next start",
     "start:rc": "APP_ENV=rc hyper-env -- next start",
-    "start:docker": "APP_ENV=prod ./node_modules/@hyperse/hyper-env/bin/hyper-env.mjs -- node server.js",
-    "start:docker:integration": "APP_ENV=integration ./node_modules/@hyperse/hyper-env/bin/hyper-env.mjs -- node server.js",
-    "start:docker:prod": "APP_ENV=prod ./node_modules/@hyperse/hyper-env/bin/hyper-env.mjs -- node server.js",
-    "start:docker:rc": "APP_ENV=rc ./node_modules/@hyperse/hyper-env/bin/hyper-env.mjs -- node server.js"
+    "docker": "APP_ENV=prod ./node_modules/@hyperse/hyper-env/bin/hyper-env.mjs -- node server.js",
+    "docker:integration": "APP_ENV=integration ./node_modules/@hyperse/hyper-env/bin/hyper-env.mjs -- node server.js",
+    "docker:prod": "APP_ENV=prod ./node_modules/@hyperse/hyper-env/bin/hyper-env.mjs -- node server.js",
+    "docker:rc": "APP_ENV=rc ./node_modules/@hyperse/hyper-env/bin/hyper-env.mjs -- node server.js"
   },
 ```
 
@@ -278,6 +274,14 @@ CMD sh start.sh
 
 ```shell
 # sleep 100000
-exec npm run start:docker:{DeployEnv}
+exec npm run docker:${DeployEnv}
 
+```
+
+### Next runtime env
+
+packages.json
+
+```json
+"next-runtime-env": "^3.2.2",
 ```

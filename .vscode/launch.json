@@ -9,16 +9,9 @@
       "request": "launch",
       "name": "Debug Test File",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run-script",
-        "test-unit"
-      ],
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "args": [
-        "${relativeFile}"
-      ],
+      "runtimeArgs": ["run-script", "test-unit"],
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["${relativeFile}"],
       "env": {}
     }
   ]

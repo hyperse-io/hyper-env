@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.12
+
+### Patch Changes
+
+- [`2a752da`](https://github.com/hyperse-io/hyper-env/commit/2a752daa7b5765bcc69aa4ae5c2cd5da8ff648be) Thanks [@tianyingchun](https://github.com/tianyingchun)! - bump version & eslint
+
 ## 1.0.11
 
 ### Patch Changes

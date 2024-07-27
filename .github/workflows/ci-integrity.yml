@@ -53,6 +53,10 @@ jobs:
       - name: 📥 Install Dependencies
         run: yarn --frozen-lockfile
 
+      - name: Typecheck
+        run: |
+          yarn typecheck
+
       - name: Linter
         run: |
           yarn lint

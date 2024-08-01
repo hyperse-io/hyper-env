@@ -67,9 +67,9 @@ describe('Next Standalone', () => {
   });
 
   it('should copy only the necessary files with specificed correct parameters', async () => {
-    const fromBase = process.cwd();
-    const copyToBase = process.cwd();
-    await nextStandalone(['--fromBase', fromBase, '--copyToBase', copyToBase]);
+    const repoCwd = process.cwd();
+    const projectCwd = process.cwd();
+    await nextStandalone(['--repoCwd', repoCwd, '--projectCwd', projectCwd]);
 
     const fileList = [
       'bin/hyper-env.mjs',
@@ -92,12 +92,7 @@ describe('Next Standalone', () => {
   });
 
   it('should correct handle copy .env files for workdir', async () => {
-    await nextStandalone([
-      '--fromBase',
-      fixtureCwd,
-      '--copyToBase',
-      fixtureCwd,
-    ]);
+    await nextStandalone(['--repoCwd', fixtureCwd, '--projectCwd', fixtureCwd]);
     for (const envFile of Object.keys(envFiles)) {
       expect(fsPromise.copyFile).toHaveBeenCalledWith(
         join(fixtureCwd, envFile),
@@ -107,11 +102,11 @@ describe('Next Standalone', () => {
   });
 
   it('should correct handle argv dummy standard parameters', async () => {
-    const fromBase = '/fromBase';
-    const copyToBase = '/copyToBase';
-    await nextStandalone(['--fromBase', fromBase, '--copyToBase', copyToBase]);
+    const repoCwd = '/fromBase';
+    const projectCwd = '/copyToBase';
+    await nextStandalone(['--repoCwd', repoCwd, '--projectCwd', projectCwd]);
     [
-      [binFile, `${copyToBase}/.next${process.cwd()}/bin/hyper-env.mjs`],
+      [binFile, `${projectCwd}/.next${process.cwd()}/bin/hyper-env.mjs`],
     ].forEach(([from, to]) => {
       expect(fsPromise.copyFile).toHaveBeenCalledWith(from, to);
     });
@@ -119,11 +114,11 @@ describe('Next Standalone', () => {
   });
 
   it('should correct handle argv dummy standard parameters with alias', async () => {
-    const fromBase = '/fromBase';
-    const copyToBase = '/copyToBase';
-    await nextStandalone(['-f', fromBase, '-c', copyToBase]);
+    const repoCwd = '/fromBase';
+    const projectCwd = '/copyToBase';
+    await nextStandalone(['-r', repoCwd, '-p', projectCwd]);
     [
-      [binFile, `${copyToBase}/.next${process.cwd()}/bin/hyper-env.mjs`],
+      [binFile, `${projectCwd}/.next${process.cwd()}/bin/hyper-env.mjs`],
     ].forEach(([from, to]) => {
       expect(fsPromise.copyFile).toHaveBeenCalledWith(from, to);
     });

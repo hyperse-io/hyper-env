@@ -1,16 +1,26 @@
 import fs from 'fs';
 import fsPromise from 'fs/promises';
 import minimist from 'minimist';
-import { dirname, resolve } from 'path';
+import { dirname, isAbsolute, relative, resolve } from 'path';
 import { nodeFileTrace } from '@vercel/nft';
-import { fileWalk } from './file-walk.js';
 import { getDirname } from './get-dir-name.js';
+import { fileWalk } from './utils.js';
 
 type Argv = {
-  f: string;
-  fromBase: string;
-  c: string;
-  copyToBase: string;
+  p: string;
+  /**
+   * THe project root folder, normally it always `process.cwd()`, it can be a relative path from the repository root folder.
+   * @example `docs` for `monorepo`
+   * @default `process.cwd()`
+   */
+  projectCwd: string;
+
+  r: string;
+  /**
+   * The repository root folder
+   * @default `process.cwd()`
+   */
+  repoCwd: string;
 };
 
 /**
@@ -21,27 +31,34 @@ type Argv = {
  */
 export const nextStandalone = async (args: string[]) => {
   const binFile = getDirname(import.meta.url, '../bin/hyper-env.mjs');
+  const defaultRepoCwd = /\/node_modules\//.test(binFile)
+    ? binFile.split('node_modules')[0]
+    : process.cwd();
+
+  const defaultProjectCwd = process.cwd();
+
   const argv = minimist<Argv>(args, {
     '--': true,
     alias: {
-      f: 'fromBase',
-      c: 'copyToBase',
+      r: 'repoCwd',
+      p: 'projectCwd',
     },
     default: {
-      fromBase: process.cwd(),
-      copyToBase: process.cwd(),
+      repoCwd: defaultRepoCwd,
+      projectCwd: defaultProjectCwd,
     },
   });
 
-  const { fromBase, copyToBase } = argv;
+  const repoCwd = resolve(defaultRepoCwd, argv.repoCwd);
+  const projectCwd = resolve(repoCwd, argv.projectCwd);
 
   const { fileList } = await nodeFileTrace([binFile], {
-    base: fromBase,
+    base: repoCwd,
   });
 
   const envFiles = await fileWalk(['.env', '.env.*'], {
-    cwd: fromBase,
-    absolute: false,
+    cwd: projectCwd,
+    absolute: true,
   });
 
   for (const absEnvFile of envFiles) {
@@ -49,13 +66,15 @@ export const nextStandalone = async (args: string[]) => {
   }
 
   for (const filePath of fileList) {
-    const copyTo = resolve(copyToBase, '.next/standalone', filePath);
+    const copyFrom = resolve(repoCwd, filePath);
+    const copyTo = resolve(
+      projectCwd,
+      '.next/standalone',
+      isAbsolute(filePath) ? relative(projectCwd, filePath) : filePath
+    );
     if (!fs.existsSync(dirname(copyTo))) {
       fs.mkdirSync(dirname(copyTo), { recursive: true });
     }
-    await fsPromise.copyFile(
-      resolve(fromBase, filePath),
-      resolve(copyToBase, '.next/standalone', filePath)
-    );
+    await fsPromise.copyFile(copyFrom, copyTo);
   }
 };

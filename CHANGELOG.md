@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.13
+
+### Patch Changes
+
+- [`67539ad`](https://github.com/hyperse-io/hyper-env/commit/67539ad9020339a6318acf0a3b1818331c0aaf75) Thanks [@tianyingchun](https://github.com/tianyingchun)! - refactor `next-standalone`
+
 ## 1.0.12
 
 ### Patch Changes

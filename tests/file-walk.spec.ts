@@ -1,7 +1,7 @@
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileWalk } from '../src/file-walk.js';
 import { getDirname } from '../src/get-dir-name.js';
+import { fileWalk } from '../src/utils.js';
 
 const createFixtureFiles = (
   url: string,

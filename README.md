@@ -285,3 +285,11 @@ packages.json
 ```json
 "next-runtime-env": "^3.2.2",
 ```
+
+### Note Environment Variables of next.js
+
+next.js Bundling Environment Variables for the Browser at build time
+
+- https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables
+- hyper-env only attach Environment Variables on `processs.env`
+- we need to expose runtime env variables via `next-runtime-env`, otherwise we can not correct use these env variables in browser

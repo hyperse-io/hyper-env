@@ -293,3 +293,51 @@ next.js Bundling Environment Variables for the Browser at build time
 - https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables
 - hyper-env only attach Environment Variables on `processs.env`
 - we need to expose runtime env variables via `next-runtime-env`, otherwise we can not correct use these env variables in browser
+- If you use `_pages router` you must be use SSR mode.
+
+```tsx
+import { GetServerSideProps } from 'next';
+import { HealthClient } from './client';
+
+// Must be declared as SSR for 'next-runtime-env';
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {},
+  };
+};
+
+export default function EnvPage() {
+  return (
+    <div>
+      <HealthClient />
+    </div>
+  );
+}
+```
+
+```tsx
+// client.tsx
+'use client';
+
+import { env } from 'next-runtime-env';
+
+export default () => {
+  return (
+    <div>
+      <p>Client env:</p>
+      <div>
+        <p>NEXT_PUBLIC_ENV(env): {env('NEXT_PUBLIC_ENV')}</p>
+        <p>NEXT_PUBLIC_TEXT(process): {process.env.NEXT_PUBLIC_TEXT}</p>
+      </div>
+    </div>
+  );
+};
+```
+
+```tsx
+// _app.tsx
+
+import { PublicEnvScript } from 'next-runtime-env';
+
+<PublicEnvScript />;
+```

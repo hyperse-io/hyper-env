@@ -1,6 +1,6 @@
 {
   "name": "@hyperse/hyper-env",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Populates your environment from .env files at run-time rather than build-time.",
   "keywords": [
     "hyperse",

@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.14
+
+### Patch Changes
+
+- [`a4ee9fc`](https://github.com/hyperse-io/hyper-env/commit/a4ee9fc7b4a53ff224d4d3fd54763dfc1b13ae78) Thanks [@tianyingchun](https://github.com/tianyingchun)! - bump version
+
 ## 1.0.13
 
 ### Patch Changes

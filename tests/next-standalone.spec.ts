@@ -1,4 +1,4 @@
-import fs, { rmdirSync, rmSync, writeFileSync } from 'fs';
+import fs, { rmSync, writeFileSync } from 'fs';
 import fsPromise from 'fs/promises';
 import { join } from 'path';
 import { getDirname } from '../src/get-dir-name.js';
@@ -37,7 +37,7 @@ describe('Next Standalone', () => {
     vi.restoreAllMocks();
     const node_modules = join(process.cwd(), '.next/standalone/node_modules');
     if (fs.existsSync(node_modules)) {
-      rmdirSync(node_modules, {
+      rmSync(node_modules, {
         recursive: true,
       });
     }

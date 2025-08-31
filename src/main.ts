@@ -1,13 +1,7 @@
 import { spawn } from 'child_process';
-import dotenv from 'dotenv';
-import dotenvExpand from 'dotenv-expand';
 import minimist from 'minimist';
-import { existsSync, realpathSync } from 'node:fs';
-
-function resolveFile(file: string) {
-  const path = realpathSync(process.cwd());
-  return `${path}/${file}`;
-}
+import { searchEnvFiles } from './helpers/search-env-files.js';
+import { setupDotenv } from './helpers/setup-dotenv.js';
 
 type Argv = {
   e: string;
@@ -15,18 +9,6 @@ type Argv = {
   p: string;
   path: string;
 };
-
-function getEnvFiles(argv: minimist.ParsedArgs & Argv) {
-  const envKey = argv.e || argv.env || '';
-  const envVal = process.env[envKey] ?? '';
-  const path = argv.p || argv.path || '';
-  return [
-    resolveFile(path),
-    resolveFile(`.env.${envVal}`),
-    resolveFile('.env.local'),
-    resolveFile('.env'),
-  ].filter(Boolean);
-}
 
 export const main = (args: string[]) => {
   const argv = minimist<Argv>(args, {
@@ -41,17 +23,15 @@ export const main = (args: string[]) => {
     },
   });
 
-  const dotenvFiles = getEnvFiles(argv);
+  const envKey = argv.e || argv.env || '';
+  const envFilePath = argv.p || argv.path || '';
 
-  dotenvFiles.forEach((dotenvFile) => {
-    if (existsSync(dotenvFile)) {
-      dotenvExpand.expand(
-        dotenv.config({
-          path: dotenvFile,
-        })
-      );
-    }
+  const dotenvFiles = searchEnvFiles({
+    envKey,
+    envFilePath,
   });
+
+  setupDotenv(dotenvFiles);
 
   if (argv['--'] && argv['--'].length) {
     spawn(argv['--'][0], argv['--'].slice(1), {

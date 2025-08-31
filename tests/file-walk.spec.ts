@@ -1,7 +1,7 @@
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { getDirname } from '../src/get-dir-name.js';
-import { fileWalk } from '../src/utils.js';
+import { getDirname } from '../src/helpers/get-dir-name.js';
+import { fileWalk } from '../src/helpers/is-monorepo.js';
 
 const createFixtureFiles = (
   url: string,

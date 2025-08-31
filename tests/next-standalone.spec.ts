@@ -1,7 +1,7 @@
 import fs, { rmSync, writeFileSync } from 'fs';
 import fsPromise from 'fs/promises';
 import { join } from 'path';
-import { getDirname } from '../src/get-dir-name.js';
+import { getDirname } from '../src/helpers/get-dir-name.js';
 import { nextStandalone } from '../src/next-standalone.js';
 
 describe('Next Standalone', () => {

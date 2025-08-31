@@ -19,7 +19,7 @@
       "types": "./dist/index.d.ts"
     },
     "./setup-env": {
-      "import": "./setup-env.js",
+      "import": "./dist/setup-env.js",
       "types": "./dist/setup-env.d.ts"
     },
     "./package.json": "./package.json"

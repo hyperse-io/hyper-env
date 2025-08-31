@@ -23,8 +23,8 @@ export const main = (args: string[]) => {
     },
   });
 
-  const envKey = argv.e || argv.env || '';
-  const envFilePath = argv.p || argv.path || '';
+  const envKey = argv.env || argv.e || '';
+  const envFilePath = argv.path || argv.p || '';
 
   const dotenvFiles = searchEnvFiles({
     envKey,

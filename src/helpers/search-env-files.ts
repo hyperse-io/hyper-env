@@ -1,13 +1,15 @@
 import { realpathSync } from 'node:fs';
+import { resolve as resolvePath } from 'node:path';
 
 type SearchEnvFilesProps = {
   envKey: string;
   envFilePath: string;
 };
 
+const base = realpathSync(process.cwd());
+
 function resolveFile(file: string) {
-  const path = realpathSync(process.cwd());
-  return `${path}/${file}`;
+  return resolvePath(base, file);
 }
 
 /** resolveFile is used to resolve the given filename to an absolute path under the current working directory
@@ -20,11 +22,13 @@ export const searchEnvFiles = ({
   envKey,
   envFilePath,
 }: SearchEnvFilesProps) => {
-  const envVal = process.env[envKey] ?? '';
-  return [
-    resolveFile(envFilePath),
-    resolveFile(`.env.${envVal}`),
+  const envVal = (process.env[envKey] ?? '').trim();
+  const cleanedPath = envFilePath.trim();
+  const candidates = [
+    cleanedPath ? resolveFile(cleanedPath) : null,
+    envVal ? resolveFile(`.env.${envVal}`) : null,
     resolveFile('.env.local'),
     resolveFile('.env'),
-  ].filter(Boolean);
+  ].filter(Boolean) as string[];
+  return Array.from(new Set(candidates));
 };

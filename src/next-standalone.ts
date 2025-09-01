@@ -3,8 +3,8 @@ import fsPromise from 'fs/promises';
 import minimist from 'minimist';
 import { dirname, isAbsolute, relative, resolve } from 'path';
 import { nodeFileTrace } from '@vercel/nft';
-import { getDirname } from './get-dir-name.js';
-import { fileWalk } from './utils.js';
+import { getDirname } from './helpers/get-dir-name.js';
+import { fileWalk } from './helpers/is-monorepo.js';
 
 type Argv = {
   p: string;

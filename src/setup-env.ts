@@ -1,9 +1,11 @@
+import type { DotenvConfigOptions } from 'dotenv';
 import { searchEnvFiles } from './helpers/search-env-files.js';
 import { setupDotenv } from './helpers/setup-dotenv.js';
 
 export type setupEnvOptions = {
   envKey?: string;
   envFilePath?: string;
+  dotenvOptions?: Omit<DotenvConfigOptions, 'path'>;
 };
 
 /** setupEnv is used to setup the environment variables from the .env files
@@ -14,10 +16,11 @@ export type setupEnvOptions = {
 export const setupEnv = ({
   envKey = '',
   envFilePath = '',
+  dotenvOptions = {},
 }: setupEnvOptions) => {
   const dotenvFiles = searchEnvFiles({
     envKey,
     envFilePath,
   });
-  setupDotenv(dotenvFiles);
+  setupDotenv(dotenvFiles, dotenvOptions);
 };

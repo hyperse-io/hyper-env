@@ -40,7 +40,7 @@ describe('setupEnv', () => {
       envKey: '',
       envFilePath: '',
     });
-    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles);
+    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles, {});
     expect(mockSearchEnvFiles).toHaveBeenCalledTimes(1);
     expect(mockSetupDotenv).toHaveBeenCalledTimes(1);
   });
@@ -59,7 +59,7 @@ describe('setupEnv', () => {
       envKey: 'APP_ENV',
       envFilePath: '',
     });
-    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles);
+    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles, {});
   });
 
   it('should call searchEnvFiles and setupDotenv with custom envFilePath', () => {
@@ -76,7 +76,7 @@ describe('setupEnv', () => {
       envKey: '',
       envFilePath: 'custom.env',
     });
-    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles);
+    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles, {});
   });
 
   it('should call searchEnvFiles and setupDotenv with both custom envKey and envFilePath', () => {
@@ -96,7 +96,7 @@ describe('setupEnv', () => {
       envKey: 'NODE_ENV',
       envFilePath: 'custom.env',
     });
-    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles);
+    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles, {});
   });
 
   it('should handle empty env files array', () => {
@@ -112,7 +112,7 @@ describe('setupEnv', () => {
       envKey: '',
       envFilePath: '',
     });
-    expect(mockSetupDotenv).toHaveBeenCalledWith([]);
+    expect(mockSetupDotenv).toHaveBeenCalledWith([], {});
   });
 
   it('should handle empty options object', () => {
@@ -128,7 +128,7 @@ describe('setupEnv', () => {
       envKey: '',
       envFilePath: '',
     });
-    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles);
+    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles, {});
   });
 
   it('should handle partial options with only envKey', () => {
@@ -145,7 +145,7 @@ describe('setupEnv', () => {
       envKey: 'ENV',
       envFilePath: '',
     });
-    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles);
+    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles, {});
   });
 
   it('should handle partial options with only envFilePath', () => {
@@ -162,6 +162,6 @@ describe('setupEnv', () => {
       envKey: '',
       envFilePath: 'specific.env',
     });
-    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles);
+    expect(mockSetupDotenv).toHaveBeenCalledWith(mockEnvFiles, {});
   });
 });

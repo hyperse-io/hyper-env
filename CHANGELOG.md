@@ -1,5 +1,14 @@
 # @hyperse/hyper-env
 
+## 1.0.17
+
+### Patch Changes
+
+- [#25](https://github.com/hyperse-io/hyper-env/pull/25) [`fcfdaf2`](https://github.com/hyperse-io/hyper-env/commit/fcfdaf278714820ba7b8fc297e59568abde1740e) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - feat: expose setup-env entry and improve dotenv setup
+  - Add `setupEnv` entrypoint (`@hyperse/hyper-env/setup-env`) and unit tests
+  - Pass `dotenvOptions` through to `dotenv` for finer configuration
+  - Guard dotenv loading with file existence check to avoid errors
+
 ## 1.0.16
 
 ### Patch Changes

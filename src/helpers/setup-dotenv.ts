@@ -14,8 +14,8 @@ export const setupDotenv = (
     if (existsSync(dotenvFile)) {
       dotenvExpand.expand(
         dotenv.config({
-          path: dotenvFile,
           ...dotenvOptions,
+          path: dotenvFile,
         })
       );
     }

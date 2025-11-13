@@ -56,7 +56,7 @@ We have implemented some sane defaults that have the following order of priority
 3. `.env.{envVal}.local // from the --env, -e argument`  
 4. `.env.local`  
 5. `.env.{envVal} // from the --env, -e argument`  
-6. `.env`  
+6. `.env`
 
 Your config is available in `process.env` on the server. We suggest you add `.env.local` to `.gitignore`.
 

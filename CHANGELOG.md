@@ -1,5 +1,11 @@
 # @hyperse/hyper-env
 
+## 1.0.18
+
+### Patch Changes
+
+- [#27](https://github.com/hyperse-io/hyper-env/pull/27) [`3836611`](https://github.com/hyperse-io/hyper-env/commit/38366119a50ee88fbf6770682af0089dc0498051) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - feat: update environment variable load order
+
 ## 1.0.17
 
 ### Patch Changes

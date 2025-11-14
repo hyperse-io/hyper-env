@@ -29,7 +29,7 @@ on:
       - reopened
     # Only consider those paths to trigger the action
     paths:
-      - 'packages/**'
+      - 'src/**'
       - 'package.json'
       - '*.lock'
       - '.yarnrc.yml'

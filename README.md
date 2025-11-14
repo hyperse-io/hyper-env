@@ -51,10 +51,12 @@ NEXT_APP_NOT_SECRET_CODE="1234"
 
 We have implemented some sane defaults that have the following order of priority:
 
-1. `{path-to-file} // from the --path, -p argument`
-2. `.env.{key} // from the --env, -e argument`
-3. `.env.local`
-4. `.env`
+1、`process.env`  
+2. `{path-to-file} // from the --path, -p argument`  
+3. `.env.{envVal}.local // from the --env, -e argument`  
+4. `.env.local`  
+5. `.env.{envVal} // from the --env, -e argument`  
+6. `.env`
 
 Your config is available in `process.env` on the server. We suggest you add `.env.local` to `.gitignore`.
 

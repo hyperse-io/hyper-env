@@ -36,7 +36,9 @@ describe('test suites of hyper env', () => {
       '.env.staging',
       '.env.staging2',
       '.env.production',
+      '.env.production.local',
       '.env.development',
+      '.env.development.local',
     ];
     for (const file of files) {
       if (fs.existsSync(file)) {
@@ -183,6 +185,109 @@ describe('test suites of hyper env', () => {
     ]);
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","production"/);
+    expect(readNextPage()).toMatch(/"hello:","local"/);
+  });
+
+  it('parses env files: 5、`env`', async () => {
+    writeEnvFile('.env', 'NEXT_PUBLIC_FOO=5_env');
+
+    // hyper-env -- next build
+    process.env.APP_ENV = 'production';
+    const { stderr, stdout } = await runTsScript(cliPath, [
+      '-e',
+      'APP_ENV',
+      '--',
+      'next',
+      'build',
+    ]);
+
+    expect(stderr).toBe('');
+    expect(stdout).toMatch(/node_env: test/);
+    expect(readNextPage()).toMatch(/"hello:","5_env"/);
+  });
+
+  it('parses env files: 4、`env.${APP_ENV}`', async () => {
+    writeEnvFile('.env.production', 'NEXT_PUBLIC_FOO=4_env.production');
+    writeEnvFile('.env', 'NEXT_PUBLIC_FOO=4_env');
+
+    // hyper-env -- next build
+    process.env.APP_ENV = 'production';
+    const { stderr, stdout } = await runTsScript(cliPath, [
+      '-e',
+      'APP_ENV',
+      '--',
+      'next',
+      'build',
+    ]);
+
+    expect(stderr).toBe('');
+    expect(stdout).toMatch(/node_env: test/);
+    expect(readNextPage()).toMatch(/"hello:","4_env.production"/);
+  });
+
+  it('parses env files: 3、`env.local`', async () => {
+    writeEnvFile('.env.local', 'NEXT_PUBLIC_FOO=3_env.local');
+    writeEnvFile('.env.production', 'NEXT_PUBLIC_FOO=3_production');
+    writeEnvFile('.env', 'NEXT_PUBLIC_FOO=3_env');
+
+    // hyper-env -- next build
+    process.env.APP_ENV = 'production';
+    const { stderr, stdout } = await runTsScript(cliPath, [
+      '-e',
+      'APP_ENV',
+      '--',
+      'next',
+      'build',
+    ]);
+
+    expect(stderr).toBe('');
+    expect(stdout).toMatch(/node_env: test/);
+    expect(readNextPage()).toMatch(/"hello:","3_env.local"/);
+  });
+
+  it('parses env files: 2、`${APP_ENV}.local`', async () => {
+    writeEnvFile(
+      '.env.production.local',
+      'NEXT_PUBLIC_FOO=2_env.production.local'
+    );
+    writeEnvFile('.env.local', 'NEXT_PUBLIC_FOO=2_local');
+    writeEnvFile('.env.production', 'NEXT_PUBLIC_FOO=2_production');
+    writeEnvFile('.env', 'NEXT_PUBLIC_FOO=2_env');
+
+    // hyper-env -- next build
+    process.env.APP_ENV = 'production';
+    const { stderr, stdout } = await runTsScript(cliPath, [
+      '-e',
+      'APP_ENV',
+      '--',
+      'next',
+      'build',
+    ]);
+
+    expect(stderr).toBe('');
+    expect(stdout).toMatch(/node_env: test/);
+    expect(readNextPage()).toMatch(/"hello:","2_env.production.local"/);
+  });
+
+  it('parses env files: 1、process.env ', async () => {
+    writeEnvFile('.env.production.local', 'NEXT_PUBLIC_FOO=1_production.local');
+    writeEnvFile('.env.local', 'NEXT_PUBLIC_FOO=1_local');
+    writeEnvFile('.env.production', 'NEXT_PUBLIC_FOO=1_production');
+    writeEnvFile('.env', 'NEXT_PUBLIC_FOO=1_env');
+
+    // hyper-env -- next build
+    process.env.APP_ENV = 'production';
+    process.env.NEXT_PUBLIC_FOO = '1_production.process.env';
+    const { stderr, stdout } = await runTsScript(cliPath, [
+      '-e',
+      'APP_ENV',
+      '--',
+      'next',
+      'build',
+    ]);
+
+    expect(stderr).toBe('');
+    expect(stdout).toMatch(/node_env: test/);
+    expect(readNextPage()).toMatch(/"hello:","1_production.process.env"/);
   });
 });

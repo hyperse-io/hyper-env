@@ -14,15 +14,12 @@ function writeEnvFile(name: string, text: string) {
 }
 
 function readNextPage() {
-  const manifest = JSON.parse(
-    fs.readFileSync(
-      getDirname(import.meta.url, '../.next/build-manifest.json'),
-      'utf-8'
-    )
-  );
-  const pageIndexPath = manifest.pages['/'].slice(-1)[0];
+  // Next.js 16 + Turbopack inlines the page's server-rendered markup here.
+  // Reading the client chunk via `build-manifest.json` is not stable across
+  // Next versions (chunk names and shapes change, and the last entry may be
+  // the Turbopack runtime rather than the page chunk).
   return fs.readFileSync(
-    getDirname(import.meta.url, '../.next', pageIndexPath),
+    getDirname(import.meta.url, '../.next/server/pages/index.html'),
     'utf-8'
   );
 }
@@ -67,7 +64,7 @@ describe('test suites of hyper env', () => {
     ]);
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","dev"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?dev"?/);
   });
 
   it('parse env files via --env arg', async () => {
@@ -83,7 +80,7 @@ describe('test suites of hyper env', () => {
     ]);
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","env_staging"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?env_staging"?/);
   });
 
   it('parse env files via -e arg', async () => {
@@ -99,7 +96,7 @@ describe('test suites of hyper env', () => {
     ]);
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","e_staging2"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?e_staging2"?/);
   });
 
   it('parses env files via --path arg', async () => {
@@ -114,7 +111,7 @@ describe('test suites of hyper env', () => {
     ]);
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","path_staging"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?path_staging"?/);
   });
 
   it('parses env files via -p arg', async () => {
@@ -129,7 +126,7 @@ describe('test suites of hyper env', () => {
     ]);
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","p_staging2"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?p_staging2"?/);
   });
 
   it('has order of priority', async () => {
@@ -152,7 +149,7 @@ describe('test suites of hyper env', () => {
 
     expect(testRes1.stderr).toBe('');
     expect(testRes1.stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","staging"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?staging"?/);
 
     // APP_ENV=production  hyper-env -e APP_ENV -p .env.staging  -- next build
     const testRes2 = await runTsScript(cliPath, [
@@ -167,7 +164,7 @@ describe('test suites of hyper env', () => {
 
     expect(testRes2.stderr).toBe('');
     expect(testRes2.stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","staging"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?staging"?/);
   });
 
   it('has no args with order of priority', async () => {
@@ -185,7 +182,7 @@ describe('test suites of hyper env', () => {
     ]);
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","local"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?local"?/);
   });
 
   it('parses env files: 5、`env`', async () => {
@@ -203,7 +200,7 @@ describe('test suites of hyper env', () => {
 
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","5_env"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?5_env"?/);
   });
 
   it('parses env files: 4、`env.${APP_ENV}`', async () => {
@@ -222,7 +219,7 @@ describe('test suites of hyper env', () => {
 
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","4_env.production"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?4_env\.production"?/);
   });
 
   it('parses env files: 3、`env.local`', async () => {
@@ -242,7 +239,7 @@ describe('test suites of hyper env', () => {
 
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","3_env.local"/);
+    expect(readNextPage()).toMatch(/hello:(?:<!-- -->)?"?3_env\.local"?/);
   });
 
   it('parses env files: 2、`${APP_ENV}.local`', async () => {
@@ -266,7 +263,9 @@ describe('test suites of hyper env', () => {
 
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","2_env.production.local"/);
+    expect(readNextPage()).toMatch(
+      /hello:(?:<!-- -->)?"?2_env\.production\.local"?/
+    );
   });
 
   it('parses env files: 1、process.env ', async () => {
@@ -288,6 +287,8 @@ describe('test suites of hyper env', () => {
 
     expect(stderr).toBe('');
     expect(stdout).toMatch(/node_env: test/);
-    expect(readNextPage()).toMatch(/"hello:","1_production.process.env"/);
+    expect(readNextPage()).toMatch(
+      /hello:(?:<!-- -->)?"?1_production\.process\.env"?/
+    );
   });
 });

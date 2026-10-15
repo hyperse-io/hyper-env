@@ -14,6 +14,11 @@ export const setupDotenv = (
     if (existsSync(dotenvFile)) {
       dotenvExpand.expand(
         dotenv.config({
+          // `dotenv@18` started logging `◇ injected env (n) from <path>` to
+          // stderr on every successful load. Defaulting to quiet keeps the
+          // pre-v18 silent behaviour (and keeps stdout/stderr clean for the
+          // CLI), while callers can still opt back in via `quiet: false`.
+          quiet: true,
           ...dotenvOptions,
           path: dotenvFile,
         })

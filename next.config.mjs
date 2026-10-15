@@ -9,7 +9,4 @@ console.log(`foo:`, process.env.NEXT_PUBLIC_FOO);
 export default {
   reactStrictMode: true,
   output: 'standalone',
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };

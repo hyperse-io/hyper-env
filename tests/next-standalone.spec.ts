@@ -53,9 +53,11 @@ describe('Next Standalone', () => {
       'node_modules/minimist/package.json',
       'node_modules/minimist/index.js',
       'node_modules/dotenv/package.json',
-      'node_modules/dotenv/lib/main.js',
+      // `dotenv@18` ships its entrypoint as `dist/index.cjs`.
+      'node_modules/dotenv/dist/index.cjs',
       'node_modules/dotenv-expand/package.json',
-      'node_modules/dotenv-expand/lib/main.js',
+      // `dotenv-expand@1000` moved its entrypoint under `dist/lib/`.
+      'node_modules/dotenv-expand/dist/lib/main.js',
     ];
 
     for (const filePath of fileList) {
@@ -78,9 +80,11 @@ describe('Next Standalone', () => {
       'node_modules/minimist/package.json',
       'node_modules/minimist/index.js',
       'node_modules/dotenv/package.json',
-      'node_modules/dotenv/lib/main.js',
+      // `dotenv@18` ships its entrypoint as `dist/index.cjs`.
+      'node_modules/dotenv/dist/index.cjs',
       'node_modules/dotenv-expand/package.json',
-      'node_modules/dotenv-expand/lib/main.js',
+      // `dotenv-expand@1000` moved its entrypoint under `dist/lib/`.
+      'node_modules/dotenv-expand/dist/lib/main.js',
     ];
 
     for (const filePath of fileList) {

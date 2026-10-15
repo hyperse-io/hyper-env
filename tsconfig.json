@@ -8,7 +8,12 @@
     "paths": {},
     "lib": ["dom", "dom.iterable", "esnext"],
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    // `baseUrl`/`paths` are still required at runtime by `@hyperse/ts-node`
+    // (it throws `TsConfigFieldsNotFoundError` when they are absent), so we
+    // keep them and silence the TypeScript 6/7 deprecation instead.
+    // @link https://aka.ms/ts6
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["**/node_modules", "**/.*/", "dist", "build"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
